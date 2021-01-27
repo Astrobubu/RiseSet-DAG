@@ -1,0 +1,141 @@
+
+body {
+    /* width: 100% !important; */
+    text-align: center;
+    align-content: center;
+    background-color: #212121;
+    font-family: "Open Sans", "Roboto", sans-serif;
+    color: #f3f0e9;
+    scrollbar-width: none; /* Also needed to disable scrollbar Firefox */
+    -ms-overflow-style: none;  /* Disable scrollbar IE 10+ */
+    overflow-y: scroll;
+
+}
+#test { 
+  display: flex;
+  justify-content: center;
+  border: 1px solid
+}
+td, tr{
+  border: 1px solid
+}
+
+table {
+  align-self: center;
+}
+.nav{
+  padding-bottom: 20px
+}
+
+::-webkit-scrollbar {
+width: 0px;  /* Remove scrollbar space */
+background: transparent;  /* Optional: just make scrollbar invisible */
+}
+h3,h1{
+padding: 15px;
+}
+
+h1{
+padding-top: 0.5em;
+}
+.nav-pills>li>a{
+  border-radius: 0px;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+  background-color: #ffffff00 !important;
+  border-bottom: 3px solid #355c7d !important;
+}
+.nav>li>a:focus, .nav>li>a:hover{
+  background-color: transparent !important;
+
+  border-bottom: 3px solid #355c7d !important;
+}
+.nav-link{
+  color: white;
+}
+.card {
+    /*color: black;*/
+    background-color: #2b2b2b;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 11em;
+    display:inline-block;
+}
+
+.blended {
+    mix-blend-mode: lighten !important;
+}
+.btn-xlarge {
+    padding: 10px 16px;
+    font-size: 16px;
+    line-height: normal;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-size: cover;
+}
+p {
+    font-size: 14px;
+}
+
+.tab-content .tab-pane {
+  display: none !important;
+}
+
+.tab-content  .active {
+  display: block !important;
+}
+.suncard {
+    background-image: url("sun.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-blend-mode: lighten;
+    /* background-position: -10em ; */
+}
+.jupcard {
+    background-image: url("jup.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-blend-mode: lighten;
+    /* background-position: -10em ; */
+}
+.satcard {
+    background-image: url("sat.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-blend-mode: lighten;
+    /* background-position: -10em ; */
+}
+.marscard {
+    background-image: url("mars.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-blend-mode: lighten;
+    /* background-position: -9.5em ; */
+}
+.vencard {
+    background-image: url("ven.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-blend-mode: lighten;
+    /* background-position: -8em ; */
+}
+.mooncard {
+    background-image: url("moon.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-blend-mode: lighten;
+    /* background-position: -10em ; */
+}

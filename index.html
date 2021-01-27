@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Celestial Rise and Set Times</title>
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" /> -->
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&display=swap" rel="stylesheet" />
+        <!-- <link rel="stylesheet" href="bootstrap.min.css" /> -->
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
+        <script src="astronomy.js"></script>
+        <script src="tiff.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <br> <br> <br> <br> <br>
+        <img id="logo" src="logo.png" style="width:10%;"alt="">
+        <h1>Celestial Rise and Set Times</h1>
+        <h3 id="time"></h3>
+        <br/>
+        <ul class="nav nav-pills mb-3 nav-justified " id="pills-tab" role="tablist">
+          <li class="nav-item ">
+            <a class="nav-link show" id="pills-rise-tab" data-toggle="pill" href="#pills-rise" role="tab" aria-controls="pills-rise" aria-selected="true">Rise & Set</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-sunspots-tab" data-toggle="pill" href="#pills-sunspots" role="tab" aria-controls="pills-sunspots" aria-selected="false">Sun & Sunspots</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-moon-tab" data-toggle="pill" href="#pills-moon" role="tab" aria-controls="pills-moon" aria-selected="false">Moon Phase</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-weather-satellite-tab" data-toggle="pill" href="#pills-weather-satellite" role="tab" aria-controls="pills-weather-satellite" aria-selected="false">Weather Satellite</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-apod-tab" data-toggle="pill" href="#pills-apod" role="tab" aria-controls="pills-apod" aria-selected="false">APOD</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-weather-tab" data-toggle="pill" href="#pills-weather" role="tab" aria-controls="pills-weather" aria-selected="false">Weather Data</a>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+
+            <div class="container tab-pane fade show active" id="pills-rise" role="tabpanel" aria-labelledby="pills-rise-tab">
+                <div class="col-sm card suncard">
+                    <h3>Sun</h3>
+                    <p id="sunr">Rise:</p>
+                    <p id="suns">Set:</p>
+                </div>
+                <div class="col-sm card jupcard">
+                    <h3>Jupiter</h3>
+                    <p id="jupr">Rise:</p>
+                    <p id="jups">Set:</p>
+                </div>
+                <div class="col-sm card satcard">
+                    <h3>Saturn</h3>
+                    <p id="satr">Rise:</p>
+                    <p id="sats">Set:</p>
+                </div>
+                <div class="col-sm card marscard">
+                    <h3>Mars</h3>
+                    <p id="marr">Rise:</p>
+                    <p id="mars">Set:</p>
+                </div>
+                <div class="col-sm card vencard">
+                    <h3>Venus</h3>
+                    <p id="venr">Rise:</p>
+                    <p id="vens">Set:</p>
+                </div>
+                <div class="col-sm card mooncard">
+                    <h3>Moon</h3>
+                    <p id="moonr">Rise:</p>
+                    <p id="moons">Set:</p>
+                </div>
+            </div>
+            <div class=" tab-pane fade show active" id="pills-sunspots" role="tabpanel" aria-labelledby="pills-sunspots-tab">
+                <!-- <h3>Moon Phase</h3> -->
+                <!-- <p id="moonp">Phase:</p> -->
+                <h3>Sunspots Today</h3>
+                <img id="sunspots" src="" class="blended" alt="Sunspots Today" width="720" />
+
+                <h3>Sun from the SDO Space Telescope Today</h3>
+                <img id="sdosun" src="" class="blended" alt="Sun Space" width="720" />
+                <br />
+            </div>
+            <div class=" tab-pane fade show active" id="pills-moon" role="tabpanel" aria-labelledby="pills-moon-tab">
+                <h3>Moon Today</h3>
+                <img id="moonimg" class="blended" src="" alt="Moon Phase" width="720" />
+
+                <img id="orbit" src="" class="blended" alt="" width="720" />
+                <br />
+                <img id="comp" src="" class="blended" alt="" width="1080" />
+                <br />
+              </div>
+              <div class=" tab-pane fade show active" id="pills-weather-satellite" role="tabpanel" aria-labelledby="pills-weather-satellite-tab">
+
+                <h3>Weather in Infra-Red wavelength</h3>
+                <img id="insat3dIR" class="blended" src="" width="1080" alt="" />
+                <br />
+                <h3>Weather in Visual wavelength</h3>
+                <img id="insat3dV" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Weather in Water Vapor reflection wavelength</h3>
+                <img id="insat3dWV" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Weather in Water Vapor GIF</h3>
+                <img id="insat3dWVGIF" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Weather in Infra-Red GIF</h3>
+                <img id="insat3dIRGIF" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Meteosat IR Full</h3>
+                <img id="MeteosatIRF" class="blended" src="" width="1080" alt="" />
+
+                <h3>Meteosat IR Middle East</h3>
+                <img id="MeteosatIRME" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Meteosat Water Vapor Full</h3>
+                <img id="MeteosatWVF" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Meteosat Water Vapor Middle East</h3>
+                <img id="MeteosatWVME" class="blended" src="" width="1080" alt="" />
+
+                <h3>Meteosat Visible Full</h3>
+                <img id="MeteosatVisF" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Meteosat Visible Middle East</h3>
+                <img id="MeteosatVisME" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Meteosat Visible Middle East GIF - 3 Hour update</h3>
+                <img id="MeteosatVisGIF" class="blended" src="" width="1080" alt="" />
+                <br />
+
+                <h3>Meteosat IR Middle East GIF - 3 Hour update</h3>
+                <img id="MeteosatIRGIF" class="blended" src="" width="1080" alt="" />
+                <br />
+              </div>
+              <div class=" tab-pane fade show active" id="pills-apod" role="tabpanel" aria-labelledby="pills-apod-tab">
+                <h3>Astronomy Picutre of the Day</h3>
+                <h4 id="apodtitle"></h4>
+                <img id="apod" src="" class="blended" alt="" />
+                <h4 id="apodexp"></h4>
+            </div>
+            <div class=" tab-pane fade show active" id="pills-weather" role="tabpanel" aria-labelledby="pills-weather-tab">
+                <h3>Weather Data</h3>
+                <div class="" id="test">
+                    <table>
+                        <tr>
+                            <td>Temperature</td>
+                            <td id="temp"></td>
+                        </tr>
+                        <tr>
+                            <td>Clouds Sensor</td>
+                            <td id="clouds"></td>
+                        </tr>
+                        <tr>
+                            <td>Weather Condition</td>
+                            <td id="condition"></td>
+                        </tr>
+                        <tr>
+                            <td>Visibility Distance</td>
+                            <td id="vis_km"></td>
+                        </tr>
+                        <tr>
+                            <td>Visibility Quality</td>
+                            <td id="vis_miles"></td>
+                        </tr>
+                        <tr>
+                            <td>Wind Gust Speed</td>
+                            <td id="gust"></td>
+                        </tr>
+                        <tr>
+                            <td>Humidity</td>
+                            <td id="humidity"></td>
+                        </tr>
+                        <tr>
+                            <td>Precipitation</td>
+                            <td id="precip_mm"></td>
+                        </tr>
+                        <tr>
+                            <td>Pressure</td>
+                            <td id="pressure_mb"></td>
+                        </tr>
+                        <tr>
+                            <td>UV Index</td>
+                            <td id="uv"></td>
+                        </tr>
+                        <tr>
+                            <td>Wind Degree</td>
+                            <td id="wind_degree"></td>
+                        </tr>
+                        <tr>
+                            <td>Wind Direction</td>
+                            <td id="wind_dir"></td>
+                        </tr>
+                        <tr>
+                            <td>Wind Speed</td>
+                            <td id="wind_kph"></td>
+                        </tr>
+                    </table>
+                </div>
+                <p>Last Updated</p>
+                <p id="last_updated"></p>
+            </div>
+
+        </div>
+
+        <script>
+            window.onload = function () {
+
+                var today = new Date();
+                var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+                var time = today.toLocaleString([], { hour: "2-digit", minute: "2-digit" });
+                var dateTime = date + " \n " + time;
+                $("#time").text(dateTime);
+                const StorageKey = "AstroDemo.Options";
+                var tabChange = function(){
+               var tabs = $('.nav-tabs > li');
+               var active = tabs.filter('.active');
+               var next = active.next('li').length? active.next('li').find('a') : tabs.filter(':first-child').find('a');
+               // Bootsrap tab show, para ativar a tab
+               next.tab('show')
+               }
+               // Tab Cycle function
+               var tabCycle = setInterval(tabChange, 1000)
+               // Tab click event handler
+               var tabChange = function () {
+                   var tabs = $('.nav-tabs > li');
+                   var active = tabs.filter('.active');
+                   var next = active.next('li').length ? active.next('li').find('a') : tabs.filter(':first-child').find('a');
+                   // Use the Bootsrap tab show method
+                   next.tab('show');
+               };
+               // Tab Cycle function
+               var tabCycle = setInterval(tabChange, 5000);
+
+               // Tab click event handler
+               $('a').on('click', function (e) {
+                   e.preventDefault();
+                   // Stop the cycle
+                   clearInterval(tabCycle);
+                   // Show the clicked tabs associated tab-pane
+                   $(this).tab('show');
+                   // Start the cycle again in a predefined amount of time
+                   setTimeout(function () {
+                       //tabCycle = setInterval(tabChange, 5000);
+                   }, 15000);
+               });
+                function TiffLoader(link, tag) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.responseType = "arraybuffer";
+                    xhr.open("GET", "https://cors-anywhere.herokuapp.com/" + link);
+                    xhr.onload = function (e) {
+                        var tiff = new Tiff({ buffer: xhr.response });
+                        var canvas = tiff.toCanvas();
+                        var img = canvas.toDataURL("image/png");
+                        $("#" + tag).attr("src", img);
+                    };
+                    xhr.send();
+                }
+                function Pad(s, w) {
+                    s = s.toFixed(0);
+                    while (s.length < w) {
+                        s = "0" + s;
+                    }
+                    return s;
+                }
+                function FormatDate(date) {
+                    var year = Pad(date.getFullYear(), 4);
+                    var month = Pad(1 + date.getMonth(), 2);
+                    var day = Pad(date.getDate(), 2);
+                    var hour = Pad(date.getHours(), 2);
+                    var minute = Pad(date.getMinutes(), 2);
+                    var second = Pad(date.getSeconds(), 2);
+                    var ampm = date.toLocaleString([], { hour: "2-digit", minute: "2-digit" });
+                    // // return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+                    return `${ampm}`;
+                }
+                function UpdateScreen() {
+                    // Day of year
+                    var start = new Date(today.getFullYear(), 0, 0);
+                    var diff = today - start;
+                    var oneDay = 1000 * 60 * 60 * 24;
+                    var dayofyear = Math.floor(diff / oneDay);
+
+                    $.getJSON("https://api.weatherapi.com/v1/current.json?key=ef773d319e9b4e95a4c203245212401&q=DXB", function (data) {
+                        // console.log(data)
+
+                        $("#clouds").text(data.current.cloud);
+                        $("#condition").text(data.current.condition.text);
+                        $("#temp").text(data.current.temp_c + " C°");
+                        $("#gust").text(data.current.gust_kph + " km/h");
+                        $("#humidity").text(data.current.humidity + "%");
+                        $("#last_updated").text(data.current.last_updated);
+                        $("#precip_mm").text(data.current.precip_mm + " mm");
+                        $("#pressure_mb").text(data.current.pressure_mb + " mb");
+                        $("#uv").text(data.current.uv);
+                        $("#vis_km").text(data.current.vis_km + " km");
+                        $("#wind_degree").text(data.current.wind_degree + "°");
+                        $("#wind_dir").text(data.current.wind_dir);
+                        $("#wind_kph").text(data.current.wind_kph + " km/h");
+
+                        if (data.current.vis_miles <= 0) {
+                            $("#vis_miles").text("Dense fog, objects not visible at 45 m");
+                        } else if (data.current.vis_miles <= 1) {
+                            $("#vis_miles").text("Thick fog, objects not visible at 200 m");
+                        } else if (data.current.vis_miles <= 2) {
+                            $("#vis_miles").text("Fog, objects not visible at 400 m");
+                        } else if (data.current.vis_miles <= 3) {
+                            $("#vis_miles").text("Moderate fog, objects not visible at 800 m");
+                        } else if (data.current.vis_miles <= 4) {
+                            $("#vis_miles").text("Thin fog or mist, objects not visible at 1 km");
+                        } else if (data.current.vis_miles <= 5) {
+                            $("#vis_miles").text("Visibility poor, objects not visible at 3 km");
+                        } else if (data.current.vis_miles <= 6) {
+                            $("#vis_miles").text("Visibility moderate, objects not visible at 10 km");
+                        } else if (data.current.vis_miles <= 7) {
+                            $("#vis_miles").text("Visibility good, objects not visible at 15 km");
+                        } else if (data.current.vis_miles <= 8) {
+                            $("#vis_miles").text("Visibility very good, objects not visible at 50 km");
+                        } else if (data.current.vis_miles <= 9) {
+                            $("#vis_miles").text("Visibility excellent, objects visible more than 50 km");
+                        }
+                    });
+
+                    let text_latitude = 25.276987;
+                    let text_longitude = 55.296249;
+                    let text_elevation = 10;
+                    let date = new Date();
+
+                    let latitude = parseFloat(text_latitude);
+                    let longitude = parseFloat(text_longitude);
+                    let elevation = parseFloat(text_elevation);
+
+                    let observer = Astronomy.MakeObserver(latitude, longitude, elevation);
+                    // var phase = Astronomy.MoonPhase(date);
+                    let sunrise = Astronomy.SearchRiseSet("Sun", observer, +1, date, 300);
+                    let sunset = Astronomy.SearchRiseSet("Sun", observer, -1, date, 300);
+                    let moonrise = Astronomy.SearchRiseSet("Moon", observer, +1, date, 300);
+                    let moonset = Astronomy.SearchRiseSet("Moon", observer, -1, date, 300);
+                    let juprise = Astronomy.SearchRiseSet("Jupiter", observer, +1, date, 300);
+                    let jupset = Astronomy.SearchRiseSet("Jupiter", observer, -1, date, 300);
+                    let satrise = Astronomy.SearchRiseSet("Saturn", observer, +1, date, 300);
+                    let satset = Astronomy.SearchRiseSet("Saturn", observer, -1, date, 300);
+                    let marsrise = Astronomy.SearchRiseSet("Mars", observer, +1, date, 300);
+                    let marsset = Astronomy.SearchRiseSet("Mars", observer, -1, date, 300);
+                    let venrise = Astronomy.SearchRiseSet("Venus", observer, +1, date, 300);
+                    let venset = Astronomy.SearchRiseSet("Venus", observer, -1, date, 300);
+
+                    // $("#moonp").text("Phase: " + phase.toFixed(3));
+                    // console.log(sunrise.date.getHours());
+                    // console.log(sunset.date.getHours());
+                    // console.log(juprise.date);
+                    // console.log(jupset.date);
+                    // if (sunrise.date< juprise.date) {console.log("TES")}
+                    // console.log(marsrise.date);
+                    // console.log(marsset.date);
+                    let sunr = sunrise ? FormatDate(sunrise.date) : "";
+                    $("#sunr").text("Rise: " + sunr);
+
+                    let suns = sunset ? FormatDate(sunset.date) : "";
+                    $("#suns").text("Set: " + suns);
+
+                    let jupr = jupset ? FormatDate(juprise.date) : "";
+                    $("#jupr").text("Rise: " + jupr);
+
+                    let jups = jupset ? FormatDate(jupset.date) : "";
+                    $("#jups").text("Set: " + jups);
+
+                    let satr = satrise ? FormatDate(satrise.date) : "";
+                    $("#satr").text("Rise: " + satr);
+
+                    let sats = satset ? FormatDate(satset.date) : "";
+                    $("#sats").text("Set: " + sats);
+
+                    let marr = marsrise ? FormatDate(marsrise.date) : "";
+                    $("#marr").text("Rise: " + marr);
+
+                    let mars = marsset ? FormatDate(marsset.date) : "";
+                    $("#mars").text("Set: " + mars);
+
+                    let venr = venrise ? FormatDate(venrise.date) : "";
+                    $("#venr").text("Rise: " + venr);
+
+                    let vens = venset ? FormatDate(venset.date) : "";
+                    $("#vens").text("Set: " + vens);
+
+                    let moonr = moonrise ? FormatDate(moonrise.date) : "";
+                    $("#moonr").text("Rise: " + moonr);
+
+                    let moons = moonset ? FormatDate(moonset.date) : "";
+                    $("#moons").text("Set: " + moons);
+
+                    $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
+
+                    // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/850x850_1x1_30p/orbit." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "orbit");
+                    TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
+
+                    $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
+                    $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
+                    $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
+                    $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
+                    $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
+                    $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
+                    $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
+                    $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
+                    $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
+                    $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
+                    $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
+                    $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
+                    $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
+                    $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
+                    $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
+
+                    $.getJSON("https://api.nasa.gov/planetary/apod?api_key=vpa4GReiOx8IhT5Gy942c7b2mESJk7CmE3iopbZf", function (data) {
+                        var apodurl = `${data.url}`;
+                        var apodtitle = `${data.title}`;
+                        var apodexp = `${data.explanation}`;
+                        $("#apod").attr("src", apodurl);
+                        $("#apodexp").text(apodexp);
+                        $("#apodtitle").text(apodtitle);
+                    });
+                    setTimeout(UpdateScreen, 3600000);
+                }
+
+                UpdateScreen();
+            };
+        </script>
+    </body>
+</html>
+
+<!-- <button type="button" class="btn btn-outline-primary btn-xlarge">Primary</button>
+                <button type="button" class="btn btn-outline-secondary btn-xlarge">Secondary</button>
+                <button type="button" class="btn btn-outline-success btn-xlarge">Success</button>
+                <button type="button" class="btn btn-outline-info btn-xlarge">Info</button>
+                <button type="button" class="btn btn-outline-warning btn-xlarge">Warning</button>
+                <button type="button" class="btn btn-outline-danger btn-xlarge">Danger</button> -->
+
+<!--    // IRGIF    https://mausam.imd.gov.in/Satellite/Converted/IR1.gif
+                    // VisGIF   https://mausam.imd.gov.in/Satellite/Converted/VIS.gif
+                    // WVGIF    https://mausam.imd.gov.in/Satellite/Converted/WV.gif
+
+                    // https://mausam.imd.gov.in/imd_latest/contents/rapidscan.php
+
+                    // Meteosat 8 IR ME https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg
+                    // Meteosat 8 IR full https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg
+                    // Meteosat 8 Vis full https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg
+                    // Meteosat 8 Vis ME https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg
+                    // Meteosat 8 WV ME https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg
+                    // Meteosat 8 WV full https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg
+
+                    // Meteosat 8 IR ME GIF https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif
+                    // Meteosat 8 VIS ME GIF https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif -->
