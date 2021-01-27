@@ -7,6 +7,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <!-- <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Roboto:wght@100&display=swap" rel="stylesheet" /> -->
         <!-- <link rel="stylesheet" href="bootstrap.min.css" /> -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
         <script src="astronomy.js"></script>
@@ -15,6 +17,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="styles.css" />
+
     </head>
     <body>
         <br> <br> <br> <br> <br>
@@ -155,63 +158,63 @@
             </div>
             <div class=" tab-pane fade show active" id="pills-weather" role="tabpanel" aria-labelledby="pills-weather-tab">
                 <h3>Weather Data</h3>
-                <div class="" id="test">
-                    <table>
-                        <tr>
-                            <td>Temperature</td>
-                            <td id="temp"></td>
-                        </tr>
-                        <tr>
-                            <td>Clouds Sensor</td>
-                            <td id="clouds"></td>
-                        </tr>
-                        <tr>
-                            <td>Weather Condition</td>
-                            <td id="condition"></td>
-                        </tr>
-                        <tr>
-                            <td>Visibility Distance</td>
-                            <td id="vis_km"></td>
-                        </tr>
-                        <tr>
-                            <td>Visibility Quality</td>
-                            <td id="vis_miles"></td>
-                        </tr>
-                        <tr>
-                            <td>Wind Gust Speed</td>
-                            <td id="gust"></td>
-                        </tr>
-                        <tr>
-                            <td>Humidity</td>
-                            <td id="humidity"></td>
-                        </tr>
-                        <tr>
-                            <td>Precipitation</td>
-                            <td id="precip_mm"></td>
-                        </tr>
-                        <tr>
-                            <td>Pressure</td>
-                            <td id="pressure_mb"></td>
-                        </tr>
-                        <tr>
-                            <td>UV Index</td>
-                            <td id="uv"></td>
-                        </tr>
-                        <tr>
-                            <td>Wind Degree</td>
-                            <td id="wind_degree"></td>
-                        </tr>
-                        <tr>
-                            <td>Wind Direction</td>
-                            <td id="wind_dir"></td>
-                        </tr>
-                        <tr>
-                            <td>Wind Speed</td>
-                            <td id="wind_kph"></td>
-                        </tr>
-                    </table>
+                <div class="weathered container" >
+                    <div class="col-sm cardsm">
+                    <p id="temp" class="bigfont"></p>
+                    <p>Temperature</p>
+                    </div>
+                    <div class="col-sm cardsm">
+                    <p id="clouds" class="bigfont"></p>
+                    <p>Clouds Sensor</p>
                 </div>
-                <p>Last Updated</p>
+                    <div class="col-sm cardsm">
+                    <p id="condition" class="bigfont"></p>
+                    <p>Weather Type</p>
+               </div>
+                    <div class="col-sm cardsm">
+                    <p id="vis_km" class="bigfont"></p>
+                    <p>Visibility Distance</p>
+               </div>
+                  
+                    <div id="gustbox" class="col-sm cardsm">
+                    <p id="gust" class="bigfont"></p>
+                    <p>Wind Gust Speed</p>
+                </div>
+                    <div class="col-sm cardsm">
+                    <p id="humidity" class="bigfont"></p>
+                    <p>Humidity</p>
+                </div>
+                    <div class="col-sm cardsm">
+                    <p id="precip_mm" class="bigfont"></p>
+                    <p>Precipitation</p>
+               </div>
+                    <div class="col-sm cardsm"> 
+                    <p id="pressure_mb" class="bigfont"></p>
+                    <p>Pressure</p>
+               </div>
+                    <div class="col-sm cardsm">
+                    <p id="uv" class="bigfont"></p>
+                    <p>UV Index</p>
+              </div>
+                    <div class="col-sm cardsm">
+                    <p id="wind_degree" class="bigfont"></p>
+                    <p>Wind Degree</p>
+               </div>
+                    <div class="col-sm cardsm">
+                    <p id="wind_dir" class="bigfont"></p>
+                    <p>Wind Direction</p>
+                </div>
+                    <div class="col-sm cardsm">
+                    <p id="wind_kph" class="bigfont"></p>
+                    <p>Wind Speed</p>
+           </div>
+
+             <div class="col-md card2">
+                    <p id="vis_miles" class="bigfont"></p>
+                    <p>Visibility Quality</p>
+                </div>
+                    
+                </div>
                 <p id="last_updated"></p>
             </div>
 
@@ -219,6 +222,7 @@
 
         <script>
             window.onload = function () {
+               
 
                 var today = new Date();
                 var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
@@ -226,38 +230,9 @@
                 var dateTime = date + " \n " + time;
                 $("#time").text(dateTime);
                 const StorageKey = "AstroDemo.Options";
-                var tabChange = function(){
-               var tabs = $('.nav-tabs > li');
-               var active = tabs.filter('.active');
-               var next = active.next('li').length? active.next('li').find('a') : tabs.filter(':first-child').find('a');
-               // Bootsrap tab show, para ativar a tab
-               next.tab('show')
-               }
-               // Tab Cycle function
-               var tabCycle = setInterval(tabChange, 1000)
-               // Tab click event handler
-               var tabChange = function () {
-                   var tabs = $('.nav-tabs > li');
-                   var active = tabs.filter('.active');
-                   var next = active.next('li').length ? active.next('li').find('a') : tabs.filter(':first-child').find('a');
-                   // Use the Bootsrap tab show method
-                   next.tab('show');
-               };
-               // Tab Cycle function
-               var tabCycle = setInterval(tabChange, 5000);
-
-               // Tab click event handler
-               $('a').on('click', function (e) {
-                   e.preventDefault();
-                   // Stop the cycle
-                   clearInterval(tabCycle);
-                   // Show the clicked tabs associated tab-pane
-                   $(this).tab('show');
-                   // Start the cycle again in a predefined amount of time
-                   setTimeout(function () {
-                       //tabCycle = setInterval(tabChange, 5000);
-                   }, 15000);
-               });
+                    
+             
+               
                 function TiffLoader(link, tag) {
                     var xhr = new XMLHttpRequest();
                     xhr.responseType = "arraybuffer";
@@ -277,7 +252,7 @@
                     }
                     return s;
                 }
-                function FormatDate(date) {
+                function Formapate(date) {
                     var year = Pad(date.getFullYear(), 4);
                     var month = Pad(1 + date.getMonth(), 2);
                     var day = Pad(date.getDate(), 2);
@@ -295,6 +270,7 @@
                     var oneDay = 1000 * 60 * 60 * 24;
                     var dayofyear = Math.floor(diff / oneDay);
 
+                
                     $.getJSON("https://api.weatherapi.com/v1/current.json?key=ef773d319e9b4e95a4c203245212401&q=DXB", function (data) {
                         // console.log(data)
 
@@ -303,7 +279,7 @@
                         $("#temp").text(data.current.temp_c + " C°");
                         $("#gust").text(data.current.gust_kph + " km/h");
                         $("#humidity").text(data.current.humidity + "%");
-                        $("#last_updated").text(data.current.last_updated);
+                        $("#last_updated").text("Last Updated: " +data.current.last_updated);
                         $("#precip_mm").text(data.current.precip_mm + " mm");
                         $("#pressure_mb").text(data.current.pressure_mb + " mb");
                         $("#uv").text(data.current.uv);
@@ -367,40 +343,40 @@
                     // if (sunrise.date< juprise.date) {console.log("TES")}
                     // console.log(marsrise.date);
                     // console.log(marsset.date);
-                    let sunr = sunrise ? FormatDate(sunrise.date) : "";
+                    let sunr = sunrise ? Formapate(sunrise.date) : "";
                     $("#sunr").text("Rise: " + sunr);
 
-                    let suns = sunset ? FormatDate(sunset.date) : "";
+                    let suns = sunset ? Formapate(sunset.date) : "";
                     $("#suns").text("Set: " + suns);
 
-                    let jupr = jupset ? FormatDate(juprise.date) : "";
+                    let jupr = jupset ? Formapate(juprise.date) : "";
                     $("#jupr").text("Rise: " + jupr);
 
-                    let jups = jupset ? FormatDate(jupset.date) : "";
+                    let jups = jupset ? Formapate(jupset.date) : "";
                     $("#jups").text("Set: " + jups);
 
-                    let satr = satrise ? FormatDate(satrise.date) : "";
+                    let satr = satrise ? Formapate(satrise.date) : "";
                     $("#satr").text("Rise: " + satr);
 
-                    let sats = satset ? FormatDate(satset.date) : "";
+                    let sats = satset ? Formapate(satset.date) : "";
                     $("#sats").text("Set: " + sats);
 
-                    let marr = marsrise ? FormatDate(marsrise.date) : "";
+                    let marr = marsrise ? Formapate(marsrise.date) : "";
                     $("#marr").text("Rise: " + marr);
 
-                    let mars = marsset ? FormatDate(marsset.date) : "";
+                    let mars = marsset ? Formapate(marsset.date) : "";
                     $("#mars").text("Set: " + mars);
 
-                    let venr = venrise ? FormatDate(venrise.date) : "";
+                    let venr = venrise ? Formapate(venrise.date) : "";
                     $("#venr").text("Rise: " + venr);
 
-                    let vens = venset ? FormatDate(venset.date) : "";
+                    let vens = venset ? Formapate(venset.date) : "";
                     $("#vens").text("Set: " + vens);
 
-                    let moonr = moonrise ? FormatDate(moonrise.date) : "";
+                    let moonr = moonrise ? Formapate(moonrise.date) : "";
                     $("#moonr").text("Rise: " + moonr);
 
-                    let moons = moonset ? FormatDate(moonset.date) : "";
+                    let moons = moonset ? Formapate(moonset.date) : "";
                     $("#moons").text("Set: " + moons);
 
                     $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
@@ -434,6 +410,8 @@
                     });
                     setTimeout(UpdateScreen, 3600000);
                 }
+                
+
 
                 UpdateScreen();
             };

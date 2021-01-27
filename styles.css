@@ -28,12 +28,14 @@ h4{
   justify-content: center;
   border: 1px solid
 }
-td, tr{
-  border: 1px solid
+.bigfont{
+  font-weight: 800;
+  font-size: calc(18px*1.618);
+  /*white-space: nowrap;*/
 }
+.weathered{
+      display:inline-block;
 
-table {
-  align-self: center;
 }
 .nav{
   padding-bottom: 20px
@@ -77,6 +79,29 @@ padding-top: 0.5em;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 11em;
+    display:inline-block;
+}
+.cardsm {
+    /*color: black;*/
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 11em;
+    display:inline-block;
+}
+.card2 {
+    /*color: black;*/
+
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width:100%;
     display:inline-block;
 }
 
