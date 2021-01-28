@@ -11,6 +11,10 @@ body {
     overflow-y: scroll;
 
 }
+#apodexp{
+  padding-left: 4em;
+  padding-right: 4em;
+}
 h1{
   font-size: calc(18px*1.618*1.618) !important;
 }
