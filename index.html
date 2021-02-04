@@ -28,10 +28,7 @@
             <h1>Celestial Rise and Set Times</h1>
             <h2 id="time"></h2>
           </div>
-
-
         </div>
-
 
         <br />
         <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
@@ -56,7 +53,7 @@
         </ul>
 
         <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade active in" id="pills-rise" role="tabpanel" aria-labelledby="pills-rise-tab">
+            <div class="tab-pane fade container active in" id="pills-rise" role="tabpanel" aria-labelledby="pills-rise-tab">
                 <div class="col-sm card suncard">
                     <h3>Sun</h3>
                     <p id="sunr">Rise:</p>
@@ -88,7 +85,7 @@
                     <p id="moons">Set:</p>
                 </div>
             </div>
-            <div class="tab-pane fade" id="pills-sunspots" role="tabpanel" aria-labelledby="pills-sunspots-tab">
+            <div class="tab-pane fade container" id="pills-sunspots" role="tabpanel" aria-labelledby="pills-sunspots-tab">
                 <!-- <h3>Moon Phase</h3> -->
                 <!-- <p id="moonp">Phase:</p> -->
                 <h3>Sunspots Today</h3>
@@ -98,7 +95,7 @@
                 <img id="sdosun" src="" class="blended" alt="Sun Space" width="720" />
                 <br />
             </div>
-            <div class="tab-pane fade" id="pills-moon" role="tabpanel" aria-labelledby="pills-moon-tab">
+            <div class="tab-pane fade container" id="pills-moon" role="tabpanel" aria-labelledby="pills-moon-tab">
                 <h3>Moon Today</h3>
                 <img id="moonimg" class="blended" src="" alt="Moon Phase" width="640" />
 
@@ -107,7 +104,7 @@
                 <img id="comp" src="" class="blended" alt="" width="1080" />
                 <br />
             </div>
-            <div class="tab-pane fade" id="pills-weather-satellite" role="tabpanel" aria-labelledby="pills-weather-satellite-tab">
+            <div class="tab-pane fade container" id="pills-weather-satellite" role="tabpanel" aria-labelledby="pills-weather-satellite-tab">
                 <h3>Weather in Infra-Red wavelength</h3>
                 <img id="insat3dIR" class="blended" src="" width="1080" alt=""  />
                 <br />
@@ -156,14 +153,24 @@
                 <h3>Meteosat IR Middle East GIF - 3 Hour update</h3>
                 <img id="MeteosatIRGIF" class="blended" src="" width="1080" alt="" />
                 <br />
+
+                <h3>Meteosat8</h3>
+                <div class="" id="ewsgl">
+
+                </div>
+
+                <h3>Meteosat Indian Ocean Data Coverage</h3>
+                <div class="" id="metiodc">
+
+                </div>
             </div>
-            <div class="tab-pane fade" id="pills-apod" role="tabpanel" aria-labelledby="pills-apod-tab">
+            <div class="tab-pane fade container" id="pills-apod" role="tabpanel" aria-labelledby="pills-apod-tab">
                 <h3>Astronomy Picutre of the Day</h3>
                 <h4 id="apodtitle"></h4>
                 <img id="apod" src="" class="blended" alt="" />
                 <h4 id="apodexp"></h4>
             </div>
-            <div class="tab-pane fade" id="pills-weather" role="tabpanel" aria-labelledby="pills-weather-tab">
+            <div class="tab-pane fade container" id="pills-weather" role="tabpanel" aria-labelledby="pills-weather-tab">
                 <div class="weathered container">
                     <div class="col-sm cardsm">
                         <p id="temp" class="bigfont"></p>
@@ -244,6 +251,16 @@
                     };
                     xhr.send();
                 }
+
+                function LastImgDirectory(link, tag, filenumber) {
+                  $.get("https://cors-anywhere.herokuapp.com/"+link,function(data){
+                    var ewsgl = new Array($('a[href$=".jpg"]',data));
+                    for (var i = 0; i < filenumber; i++) {
+                      $('#'+tag).prepend($('<img>',{src:(link+$(ewsgl[0].slice(-filenumber)[i]).attr('href'))}))
+                      }
+                  });
+                }
+
                 function Pad(s, w) {
                     s = s.toFixed(0);
                     while (s.length < w) {
@@ -268,6 +285,10 @@
                     var diff = today - start;
                     var oneDay = 1000 * 60 * 60 * 24;
                     var dayofyear = Math.floor(diff / oneDay);
+                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
+                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
+
+
 
                     $.getJSON("https://api.weatherapi.com/v1/current.json?key=ef773d319e9b4e95a4c203245212401&q=DXB", function (data) {
                         // console.log(data)
@@ -437,18 +458,7 @@
 
 
 
-            $.get("https://cors-anywhere.herokuapp.com/https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/",function(data){
-              // $('#data').append($('href',data));
-              var ewsgl = new Array($('a[href$=".jpg"]',data));
 
-              for (var i = 0; i < 5; i++) {
-
-                console.log($(ewsgl[0].slice(-5)[i]).attr('href'))
-
-
-                }
-
-            });
         </script>
     </body>
 </html>
