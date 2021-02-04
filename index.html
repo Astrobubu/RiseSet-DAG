@@ -163,6 +163,23 @@
                 <div class="" id="metiodc">
 
                 </div>
+
+                <h3>FY2G - India Ocean InfraRed Satellite</h3>
+                <div class="" id="FY2G">
+
+                </div>
+
+                <h3>INSAT-3D </h3>
+                <div class="" id="insat3dlive">
+
+                </div>
+
+                <h3>MET-PRIME - Africa, Europe, Atlantic Ocean Water Vapor Satellite </h3>
+                <div class="" id="metprime">
+
+                </div>
+
+
             </div>
             <div class="tab-pane fade container" id="pills-apod" role="tabpanel" aria-labelledby="pills-apod-tab">
                 <h3>Astronomy Picutre of the Day</h3>
@@ -260,6 +277,14 @@
                       }
                   });
                 }
+                function LastImgDirectoryspecific(link, tag, filenumber, pattern) {
+                  $.get("https://cors-anywhere.herokuapp.com/"+link,function(data){
+                    var ewsgl = new Array($('a[href$="'+pattern+'"]',data));
+                    for (var i = 0; i < filenumber; i++) {
+                      $('#'+tag).prepend($('<img>',{src:(link+$(ewsgl[0].slice(-filenumber)[i]).attr('href'))}))
+                      }
+                  });
+                }
 
                 function Pad(s, w) {
                     s = s.toFixed(0);
@@ -287,8 +312,9 @@
                     var dayofyear = Math.floor(diff / oneDay);
                     LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
                     LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
-
-
+                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
+                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/insat3d/animation_images/","insat3dlive",6);
+                    LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
 
                     $.getJSON("https://api.weatherapi.com/v1/current.json?key=ef773d319e9b4e95a4c203245212401&q=DXB", function (data) {
                         // console.log(data)
