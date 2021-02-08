@@ -169,9 +169,9 @@
 
                 </div>
 
-                <h3>INSAT-3D </h3>
-                <div class="" id="insat3dlive">
-
+                <h3>meteosat_03</h3>
+                <div class="" id="tes">
+                  <img src="" id="meteosat_03" alt="">
                 </div>
 
                 <h3>MET-PRIME - Africa, Europe, Atlantic Ocean Water Vapor Satellite </h3>
@@ -259,7 +259,7 @@
                 function TiffLoader(link, tag) {
                     var xhr = new XMLHttpRequest();
                     xhr.responseType = "arraybuffer";
-                    xhr.open("GET", "https://cors-anywhere.herokuapp.com/" + link);
+                    xhr.open("GET", link);
                     xhr.onload = function (e) {
                         var tiff = new Tiff({ buffer: xhr.response });
                         var canvas = tiff.toCanvas();
@@ -270,7 +270,7 @@
                 }
 
                 function LastImgDirectory(link, tag, filenumber) {
-                  $.get("https://cors-anywhere.herokuapp.com/"+link,function(data){
+                  $.get(link,function(data){
                     var ewsgl = new Array($('a[href$=".jpg"]',data));
                     for (var i = 0; i < filenumber; i++) {
                       $('#'+tag).prepend($('<img>',{src:(link+$(ewsgl[0].slice(-filenumber)[i]).attr('href'))}))
@@ -278,12 +278,22 @@
                   });
                 }
                 function LastImgDirectoryspecific(link, tag, filenumber, pattern) {
-                  $.get("https://cors-anywhere.herokuapp.com/"+link,function(data){
+                  $.get(link,function(data){
                     var ewsgl = new Array($('a[href$="'+pattern+'"]',data));
                     for (var i = 0; i < filenumber; i++) {
                       $('#'+tag).prepend($('<img>',{src:(link+$(ewsgl[0].slice(-filenumber)[i]).attr('href'))}))
                       }
                   });
+                }
+
+                function changeImage(imagetag, imagelist, index) {
+                  $(imagetag).attr("src",imagelist[index]);
+                  console.log(index)
+                  index++;
+                  if(index >= Object.keys(imagelist).length)
+                  {
+                    index=0;
+                  }
                 }
 
                 function Pad(s, w) {
@@ -310,11 +320,39 @@
                     var diff = today - start;
                     var oneDay = 1000 * 60 * 60 * 24;
                     var dayofyear = Math.floor(diff / oneDay);
-                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
-                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
-                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
-                    LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/insat3d/animation_images/","insat3dlive",6);
-                    LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
+
+
+
+                    // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
+                    // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
+                    // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
+                    // LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
+
+
+
+                    var meteosat03 = [];
+                    var meteosat_03_index = 0;
+                    $.get("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/",function(data){
+                        var meteosat03data = new Array($('a[href$="03_fd.jpg"]',data));
+                        for (var i = 0; i < 26; i++) {
+                            meteosat03.push("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/"+$(meteosat03data[0].slice(-26)[i]).attr('href'));
+                          }
+                          // console.log(meteosat03);
+                          // console.log(meteosat03[meteosat_03_index]);
+                          // console.log(Object.keys(meteosat03).length)
+                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
+                          meteosat_03_index++;
+                          // setInterval(changeImage("#meteosat_03", meteosat03, meteosat_03_index), 1000);
+                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
+                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
+                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
+                      });
+                    // ImgDirectoryspecific("","meteosat_03",26,"03_fd.jpg",meteosat03)
+
+
+                    // var meteosat_03_index = 0;
+                    // console.log(meteosat03[meteosat_03_index]);
+                    // changeImage("meteosat_03", meteosat_03,meteosat_03_index)
 
                     $.getJSON("https://api.weatherapi.com/v1/current.json?key=ef773d319e9b4e95a4c203245212401&q=DXB", function (data) {
                         // console.log(data)
@@ -427,23 +465,25 @@
                     $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
 
                     // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/850x850_1x1_30p/orbit." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "orbit");
-                    TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
 
-                    $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
-                    $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
-                    $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
-                    $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
-                    $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
-                    $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
-                    $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
-                    $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
-                    $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
-                    $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
-                    $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
-                    $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
-                    $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
-                    $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
-                    $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
+                    //moon
+                    // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
+
+                    // $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
+                    // $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
+                    // $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
+                    // $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
+                    // $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
+                    // $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
+                    // $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
+                    // $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
+                    // $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
+                    // $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
+                    // $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
+                    // $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
+                    // $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
+                    // $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
+                    // $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
 
                     $.getJSON("https://api.nasa.gov/planetary/apod?api_key=vpa4GReiOx8IhT5Gy942c7b2mESJk7CmE3iopbZf", function (data) {
                         var apodurl = `${data.url}`;
