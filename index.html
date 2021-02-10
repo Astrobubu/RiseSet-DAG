@@ -12,7 +12,7 @@
         <script src="astronomy.js"></script>
         <script src="tiff.min.js"></script>
         <link rel="stylesheet" href="styles.css" />
-
+        <script src="gifshot.js"></script>
     </head>
     <body>
         <br />
@@ -20,19 +20,19 @@
         <br />
         <br />
         <br />
-        <div class="row ">
-          <div class="">
-            <img id="logo" src="logo.png" alt="" />
-          </div>
-          <div class="">
-            <h1>Celestial Rise and Set Times</h1>
-            <h2 id="time"></h2>
-          </div>
+        <div class="row">
+            <div class="">
+                <img id="logo" src="logo.png" alt="" />
+            </div>
+            <div class="">
+                <h1>Celestial Rise and Set Times</h1>
+                <h2 id="time"></h2>
+            </div>
         </div>
 
         <br />
         <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
-            <li class="nav-item active container ">
+            <li class="nav-item active container">
                 <a class="nav-link show" id="pills-rise-tab" data-toggle="pill" href="#pills-rise" role="tab" aria-controls="pills-rise" aria-selected="true">Rise & Set</a>
             </li>
             <li class="nav-item container">
@@ -106,7 +106,7 @@
             </div>
             <div class="tab-pane fade container" id="pills-weather-satellite" role="tabpanel" aria-labelledby="pills-weather-satellite-tab">
                 <h3>Weather in Infra-Red wavelength</h3>
-                <img id="insat3dIR" class="blended" src="" width="1080" alt=""  />
+                <img id="insat3dIR" class="blended" src="" width="1080" alt="" />
                 <br />
                 <h3>Weather in Visual wavelength</h3>
                 <img id="insat3dV" class="blended" src="" width="1080" alt="" />
@@ -155,31 +155,21 @@
                 <br />
 
                 <h3>Meteosat8</h3>
-                <div class="" id="ewsgl">
-
-                </div>
+                <div class="" id="ewsgl"></div>
 
                 <h3>Meteosat Indian Ocean Data Coverage</h3>
-                <div class="" id="metiodc">
-
-                </div>
+                <div class="" id="metiodc"></div>
 
                 <h3>FY2G - India Ocean InfraRed Satellite</h3>
-                <div class="" id="FY2G">
+                <div class="" id="FY2G"></div>
 
+                <h3>MET-PRIME - Africa, Europe, Atlantic Ocean Water Vapor Satellite</h3>
+                <div class="" id="metprime"></div>
+
+                <h3>Meteosat</h3>
+                <div class="" id="">
+                    <img id="meteosat_03" src="" alt="" />
                 </div>
-
-                <h3>INSAT-3D </h3>
-                <div class="" id="insat3dlive">
-
-                </div>
-
-                <h3>MET-PRIME - Africa, EUMETSAT_MSGIODC_IR108Color_FullResolutionrope, Atlantic Ocean Water Vapor Satellite </h3>
-                <div class="" id="metprime">
-
-                </div>
-
-
             </div>
             <div class="tab-pane fade container" id="pills-apod" role="tabpanel" aria-labelledby="pills-apod-tab">
                 <h3>Astronomy Picutre of the Day</h3>
@@ -198,16 +188,16 @@
                         <p>Pressure</p>
                     </div>
                     <div class="col-sm cardsm">
-                      <p id="humidity" class="bigfont"></p>
-                      <p>Humidity</p>
+                        <p id="humidity" class="bigfont"></p>
+                        <p>Humidity</p>
                     </div>
                     <div class="col-sm cardsm">
-                      <p id="uv" class="bigfont"></p>
-                      <p>UV Index</p>
+                        <p id="uv" class="bigfont"></p>
+                        <p>UV Index</p>
                     </div>
                     <div class="col-sm cardsm">
-                      <p id="precip_mm" class="bigfont"></p>
-                      <p>Precipitation</p>
+                        <p id="precip_mm" class="bigfont"></p>
+                        <p>Precipitation</p>
                     </div>
                     <div class="col-sm cardsm">
                         <p id="clouds" class="bigfont"></p>
@@ -234,8 +224,8 @@
                         <p>Wind Speed</p>
                     </div>
                     <div id="gustbox" class="col-sm cardsm">
-                      <p id="gust" class="bigfont"></p>
-                      <p>Wind Gust Speed</p>
+                        <p id="gust" class="bigfont"></p>
+                        <p>Wind Gust Speed</p>
                     </div>
 
                     <div class="col-md card2">
@@ -249,13 +239,6 @@
 
         <script>
             window.onload = function () {
-                var today = new Date();
-                var date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-                var time = today.toLocaleString([], { hour: "2-digit", minute: "2-digit" });
-                var dateTime = date + " \n " + time;
-                $("#time").text(dateTime);
-                const StorageKey = "AstroDemo.Options";
-
                 function TiffLoader(link, tag) {
                     var xhr = new XMLHttpRequest();
                     xhr.responseType = "arraybuffer";
@@ -268,24 +251,35 @@
                     };
                     xhr.send();
                 }
-
                 function LastImgDirectory(link, tag, filenumber) {
-                  $.get(link,function(data){
-                    var ewsgl = new Array($('a[href$=".jpg"]',data));
-                    for (var i = 0; i < filenumber; i++) {
-                      $('#'+tag).prepend($('<img>',{src:(link+$(ewsgl[0].slice(-filenumber)[i]).attr('href'))}))
-                      }
-                  });
+                    $.get(link, function (data) {
+                        var ewsgl = new Array($('a[href$=".jpg"]', data));
+                        for (var i = 0; i < filenumber; i++) {
+                            $("#" + tag).prepend($("<img>", { src: link + $(ewsgl[0].slice(-filenumber)[i]).attr("href") }));
+                        }
+                    });
                 }
                 function LastImgDirectoryspecific(link, tag, filenumber, pattern) {
-                  $.get(link,function(data){
-                    var ewsgl = new Array($('a[href$="'+pattern+'"]',data));
-                    for (var i = 0; i < filenumber; i++) {
-                      $('#'+tag).prepend($('<img>',{src:(link+$(ewsgl[0].slice(-filenumber)[i]).attr('href'))}))
-                      }
-                  });
+                    $.get(link, function (data) {
+                        var ewsgl = new Array($('a[href$="' + pattern + '"]', data));
+                        for (var i = 0; i < filenumber; i++) {
+                            $("#" + tag).prepend($("<img>", { src: link + $(ewsgl[0].slice(-filenumber)[i]).attr("href") }));
+                        }
+                    });
                 }
-
+                function changeImage(imagetag, imagelist, index, millisecs) {
+                    $(imagetag).attr("src", imagelist[index]);
+                    console.log(index + "  " + imagelist[index]);
+                    index++;
+                    if (index >= Object.keys(imagelist).length) {
+                        index = 0;
+                    }
+                    var timerFunc = function () {
+                        changeImage(imagetag, imagelist, index, millisecs);
+                    };
+                    var timer = setTimeout(timerFunc, millisecs);
+                    // changeImage("#meteosat_03", meteosat03, meteosat_03_index, 1000)
+                }
                 function Pad(s, w) {
                     s = s.toFixed(0);
                     while (s.length < w) {
@@ -304,40 +298,96 @@
                     // // return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
                     return `${ampm}`;
                 }
+                function UpdateClock() {
+                    var today = new Date();
+                    var dateo = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+                    var time = today.toLocaleString([], { hour: "2-digit", minute: "2-digit" });
+                    var dateTime = dateo + " \n " + time;
+
+                    $("#time").text(dateTime);
+                    setTimeout(UpdateClock, 60000);
+                }
+                // Tab Cycle function
+                var tabChange = function () {
+                    var tabs = $(".nav-pills > li");
+                    var active = tabs.filter(".active");
+                    var next = active.next("li").length ? active.next("li").find("a") : tabs.filter(":first-child").find("a");
+                    // Bootsrap tab show, para ativar a tab
+                    next.tab("show");
+                };
+                var tabCycle = setInterval(tabChange, 30000);
+                $(function () {
+                    $(".nav-pills a").click(function (e) {
+                        e.preventDefault();
+
+                        clearInterval(tabCycle);
+
+                        $(this).tab("show");
+
+                        setTimeout(function () {
+                            tabCycle = setInterval(tabChange, 120000);
+                        }, 1000);
+                    });
+                });
+                function UpdateImages(){
+                  // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
+                  // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
+                  // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
+                  // LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
+
+                  // $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
+
+                  // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/850x850_1x1_30p/orbit." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "orbit");
+                  // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
+                  //
+                  // $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
+                  // $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
+                  // $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
+                  // $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
+                  // $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
+                  // $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
+                  // $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
+                  // $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
+                  // $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
+                  // $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
+                  // $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
+                  // $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
+                  // $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
+                  // $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
+                  // $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
+                  setTimeout(UpdateImages, 10800000);
+                }
                 function UpdateScreen() {
                     // Day of year
+                    var today = new Date();
                     var start = new Date(today.getFullYear(), 0, 0);
                     var diff = today - start;
                     var oneDay = 1000 * 60 * 60 * 24;
                     var dayofyear = Math.floor(diff / oneDay);
-                    // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
-                    // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
-                    // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
-                    // LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
 
                     var meteosat03 = [];
                     var meteosat_03_index = 0;
-                    $.get("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/",function(data){
-                        var meteosat03data = new Array($('a[href$="03_fd.jpg"]',data));
+                    $.get("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/", function (data) {
+                        var meteosat03data = new Array($('a[href$="03_fd.jpg"]', data));
                         for (var i = 0; i < 26; i++) {
-                            meteosat03.push("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/"+$(meteosat03data[0].slice(-26)[i]).attr('href'));
-                          }
-                          // console.log(meteosat03);
-                          // console.log(meteosat03[meteosat_03_index]);
-                          // console.log(Object.keys(meteosat03).length)
-                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
-                          meteosat_03_index++;
-                          // setInterval(changeImage("#meteosat_03", meteosat03, meteosat_03_index), 1000);
-                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
-                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
-                          changeImage("#meteosat_03", meteosat03, meteosat_03_index)
-                      });
-                    // ImgDirectoryspecific("","meteosat_03",26,"03_fd.jpg",meteosat03)
+                            meteosat03.push("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/" + $(meteosat03data[0].slice(-26)[i]).attr("href"));
+                        }
 
+                        gifshot.createGIF(
+                            {
+                                images: meteosat03,
+                                gifWidth: 1000,
+                                gifHeight: 1000,
+                                interval: 1,
+                            },
+                            function (obj) {
+                                if (!obj.error) {
+                                    $("#meteosat_03").attr("src", obj.image);
+                                }
+                            }
+                        );
+                    });
 
-                    // var meteosat_03_index = 0;
-                    // console.log(meteosat03[meteosat_03_index]);
-                    // changeImage("meteosat_03", meteosat_03,meteosat_03_index)
                     $.getJSON("https://api.weatherapi.com/v1/current.json?key=ef773d319e9b4e95a4c203245212401&q=DXB", function (data) {
                         // console.log(data)
 
@@ -446,26 +496,7 @@
                     let moons = moonset ? Formapate(moonset.date) : "";
                     $("#moons").text("Set: " + moons);
 
-                    // $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
 
-                    // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/850x850_1x1_30p/orbit." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "orbit");
-                    // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
-                    //
-                    // $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
-                    // $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
-                    // $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
-                    // $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
-                    // $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
-                    // $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
-                    // $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
-                    // $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
-                    // $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
-                    // $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
-                    // $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
-                    // $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
-                    // $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
-                    // $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
-                    // $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
 
                     $.getJSON("https://api.nasa.gov/planetary/apod?api_key=vpa4GReiOx8IhT5Gy942c7b2mESJk7CmE3iopbZf", function (data) {
                         var apodurl = `${data.url}`;
@@ -478,58 +509,10 @@
                     setTimeout(UpdateScreen, 3600000);
                 }
 
-               var tabChange = function(){
-               var tabs = $('.nav-pills > li');
-               var active = tabs.filter('.active');
-               var next = active.next('li').length? active.next('li').find('a') : tabs.filter(':first-child').find('a');
-               // Bootsrap tab show, para ativar a tab
-               next.tab('show')
-               }
-               // Tab Cycle function
-               var tabCycle = setInterval(tabChange, 30000)
-               // Tab click event handler
-               $(function(){
-                   $('.nav-pills a').click(function(e) {
-                       e.preventDefault();
-
-                       clearInterval(tabCycle);
-
-                       $(this).tab('show')
-
-                       setTimeout(function(){
-                           tabCycle = setInterval(tabChange, 120000)
-                       }, 1000);
-                   });
-               });
+                UpdateClock();
+                UpdateImages();
                 UpdateScreen();
             };
-
-
-
-
         </script>
     </body>
 </html>
-
-<!-- <button type="button" class="btn btn-outline-primary btn-xlarge">Primary</button>
-                <button type="button" class="btn btn-outline-secondary btn-xlarge">Secondary</button>
-                <button type="button" class="btn btn-outline-success btn-xlarge">Success</button>
-                <button type="button" class="btn btn-outline-info btn-xlarge">Info</button>
-                <button type="button" class="btn btn-outline-warning btn-xlarge">Warning</button>
-                <button type="button" class="btn btn-outline-danger btn-xlarge">Danger</button> -->
-
-<!--    // IRGIF    https://mausam.imd.gov.in/Satellite/Converted/IR1.gif
-                    // VisGIF   https://mausam.imd.gov.in/Satellite/Converted/VIS.gif
-                    // WVGIF    https://mausam.imd.gov.in/Satellite/Converted/WV.gif
-
-                    // https://mausam.imd.gov.in/imd_latest/contents/rapidscan.php
-
-                    // Meteosat 8 IR ME https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg
-                    // Meteosat 8 IR full https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg
-                    // Meteosat 8 Vis full https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg
-                    // Meteosat 8 Vis ME https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg
-                    // Meteosat 8 WV ME https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg
-                    // Meteosat 8 WV full https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg
-
-                    // Meteosat 8 IR ME GIF https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif
-                    // Meteosat 8 VIS ME GIF https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif -->
