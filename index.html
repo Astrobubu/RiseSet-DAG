@@ -330,31 +330,36 @@
                     });
                 });
                 function UpdateImages(){
-                  // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
-                  // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
-                  // LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
-                  // LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
+                  var today = new Date();
+                  var start = new Date(today.getFullYear(), 0, 0);
+                  var diff = today - start;
+                  var oneDay = 1000 * 60 * 60 * 24;
+                  var dayofyear = Math.floor(diff / oneDay);
+                  LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/met-iodc/animation_images/","metiodc",11);
+                  LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/ews-g1/animation_images/","ewsgl",5);
+                  LastImgDirectory("https://www.ssec.wisc.edu/data/geo/images/fy2g/animation_images/","FY2G",4);
+                  LastImgDirectoryspecific("https://www.ssec.wisc.edu/data/geo/images/met-prime/animation_images/","metprime",11,"fd.jpg");
 
-                  // $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
+                  $("#moonimg").attr("src", "https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/730x730_1x1_30p/moon." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".jpg");
 
-                  // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/850x850_1x1_30p/orbit." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "orbit");
-                  // TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
-                  //
-                  // $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
-                  // $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
-                  // $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
-                  // $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
-                  // $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
-                  // $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
-                  // $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
-                  // $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
-                  // $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
-                  // $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
-                  // $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
-                  // $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
-                  // $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
-                  // $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
-                  // $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
+                  TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/850x850_1x1_30p/orbit." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "orbit");
+                  TiffLoader("https://svs.gsfc.nasa.gov/vis/a000000/a004800/a004874/frames/1920x1080_16x9_30p/fancy/comp." + ("0" + (dayofyear * 24 - 24 + today.getHours())).slice(-4) + ".tif", "comp");
+                  
+                  $("#sunspots").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg");
+                  $("#sdosun").attr("src", "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg");
+                  $("#insat3dIR").attr("src", "https://mausam.imd.gov.in/Satellite/rswmo_ir1.jpg");
+                  $("#insat3dV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_vis.jpg");
+                  $("#insat3dWV").attr("src", "https://mausam.imd.gov.in/Satellite/3Dasiasec_wv.jpg");
+                  $("#insat3dWVGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/WV.gif");
+                  $("#insat3dIRGIF").attr("src", "https://mausam.imd.gov.in/Satellite/Converted/IR1.gif");
+                  $("#MeteosatIRF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_FullResolution.jpg");
+                  $("#MeteosatIRME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_IR108Color_MiddleEast.jpg");
+                  $("#MeteosatWVF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_MiddleEast.jpg");
+                  $("#MeteosatWVME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_WV062_FullResolution.jpg");
+                  $("#MeteosatVisF").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_FullResolution.jpg");
+                  $("#MeteosatVisME").attr("src", "https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSGIODC_VIS006Color_MiddleEast.jpg");
+                  $("#MeteosatVisGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-viscol.gif");
+                  $("#MeteosatIRGIF").attr("src", "https://img.allmetsat.com/sat/anim-msg-arabia-ircol.gif");
                   setTimeout(UpdateImages, 10800000);
                 }
                 function UpdateScreen() {
